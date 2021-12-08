@@ -1,0 +1,51 @@
+CREATE TABLE "mediaSource" (
+	"mediaSourceID"	INTEGER NOT NULL,
+	"mediaSourceName"	TEXT NOT NULL,
+	"mediaSourceDesc"	TEXT NOT NULL,
+	PRIMARY KEY("mediaSourceID" AUTOINCREMENT)
+)
+
+CREATE TABLE "mediaType" (
+	"mediaTypeID"	INTEGER NOT NULL,
+	"mediaName"	TEXT NOT NULL,
+	"mediaDescription"	TEXT NOT NULL,
+	PRIMARY KEY("mediaTypeID" AUTOINCREMENT)
+)
+
+CREATE TABLE "scheduling" (
+	"ScheduleID"	INTEGER NOT NULL,
+	"mediaSourceID"	INTEGER NOT NULL,
+	"mediaTypeID"	INTEGER NOT NULL,
+	"userTopic"	INTEGER NOT NULL,
+	"day"	INTEGER NOT NULL,
+	"time"	INTEGER NOT NULL,
+	FOREIGN KEY("mediaTypeID") REFERENCES "mediaType"("mediaTypeID"),
+	FOREIGN KEY("userTopic") REFERENCES "userTopic"("userTopicID"),
+	FOREIGN KEY("mediaSourceID") REFERENCES "mediaSource"("mediaSourceID"),
+	PRIMARY KEY("ScheduleID" AUTOINCREMENT)
+)
+
+CREATE TABLE "topic" (
+	"topicID"	INTEGER NOT NULL,
+	"topicName"	TEXT NOT NULL,
+	"topicDescription"	TEXT NOT NULL,
+	PRIMARY KEY("topicID" AUTOINCREMENT)
+)
+
+CREATE TABLE "user" (
+	"userID"	INTEGER NOT NULL,
+	"email"	TEXT NOT NULL,
+	"password"	TEXT NOT NULL,
+	PRIMARY KEY("userID")
+)
+
+CREATE TABLE "userTopic" (
+	"userTopicID"	INTEGER NOT NULL,
+	"userID"	INTEGER NOT NULL,
+	"topicID"	INTEGER NOT NULL,
+	"startDate"	INTEGER NOT NULL,
+	"endDate"	INTEGER,
+	FOREIGN KEY("userID") REFERENCES "user"("userID"),
+	FOREIGN KEY("topicID") REFERENCES "topic"("topicID"),
+	PRIMARY KEY("userTopicID" AUTOINCREMENT)
+)
