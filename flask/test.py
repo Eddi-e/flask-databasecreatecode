@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 from werkzeug.utils import redirect
 import sqlite3
 import random
@@ -7,6 +7,9 @@ from hashfunction import hashfunc
 app = Flask(__name__)
 
 
+@app.route("/", methods=['GET'])
+def home():
+    return redirect(url_for('login'))
 
 
 @app.route("/signup", methods=['GET','POST'])
